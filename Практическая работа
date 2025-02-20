@@ -1,0 +1,137 @@
+1)
+#include <iostream>
+
+class Engine {
+public:
+    Engine() {
+        std::cout << "двигатель создан" << std::endl;
+    }
+
+    ~Engine() {
+        std::cout << "двигатель уничтожен" << std::endl;
+    }
+
+    void run() {
+        std::cout << "двигатель работает" << std::endl;
+    }
+};
+
+class Car {
+private:
+    Engine engine; // двигатель является частью автомобиля
+
+public:
+    Car() {
+        std::cout << "автомобиль создан" << std::endl;
+    }
+
+    ~Car() {
+        std::cout << "автомобиль уничтожен" << std::endl;
+    }
+
+    void start() {
+        std::cout << "автомобиль запускается" << std::endl;
+        engine.run(); // вызов метода ран у объекта енгине
+    }
+};
+
+int main() {
+    Car car; // Создается объект кар который автоматически создает и уничтожает енгине
+    car.start(); // Запуск автомобиля
+    return 0;
+}
+
+
+
+2)   
+
+#include <iostream>
+#include <vector>
+#include <string>
+
+class Student {
+private:
+    std::string name;
+
+public:
+    Student(const std::string& name) : name(name) {
+        std::cout << "студент " << name << " создан" << std::endl;
+    }
+
+    ~Student() {
+        std::cout << "студент " << name << " уничтожен" << std::endl;
+    }
+
+    std::string getName() const {
+        return name;
+    }
+};
+
+class University {
+private:
+    std::vector<Student*> students; // векутор  указателей на студентов
+
+public:
+    University() {
+        std::cout << "университет создан" << std::endl;
+    }
+
+    ~University() {
+        std::cout << "университет уничтожен" << std::endl;
+        //тут мфы не уничтожаем студентов так как они пренадлежат университету 
+    }
+
+    void addStudent(Student* student) {
+        students.push_back(student);
+        std::cout << "студент " << student->getName() << " добавлен в университет" << std::endl;
+    }
+
+    void listStudents() const {
+        std::cout << "список студентов:" << std::endl;
+        for (const auto& student : students) {
+            std::cout << "- " << student->getName() << std::endl;
+        }
+    }
+};
+
+int main() {
+    University university; // создаем университет
+
+    // создаем студентов
+    Student* student1 = new Student("Иван");
+    Student* student2 = new Student("Мария");
+
+    // добавляем студентов в университет
+    university.addStudent(student1);
+    university.addStudent(student2);
+
+    // а тут выводим список студентов
+    university.listStudents();
+    // и наконец уничтожаем студентов в ручную
+    delete student1;
+    delete student2;
+
+    return 0;
+}
+
+
+
+
+3)----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
